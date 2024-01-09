@@ -1,0 +1,35 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /tmp/
+    overwrite: true
+file_exists_behavior: OVERWRITE
+permissions:
+  - object: /tmp
+    pattern: "*.sh"
+#    except: [/var/www/html/WordPress/ReadMe.txt]
+#    owner: bob
+#    group: writers
+    mode: 700
+hooks:
+#  BeforeInstall:
+#    - location: ./change_permissions.sh
+#      timeout: 300
+#      runas: root
+#  AfterInstall:
+#    - location: ./cleanup.sh
+#      timeout: 300
+#      runas: root
+  ApplicationStart:
+    - location: ./start_server.sh
+      timeout: 600
+      runas: root
+  ApplicationStop:
+    - location: ./stop_server.sh
+      timeout: 300
+      runas: root
+#  ValidateService:
+#    - location: ./cleanup.sh
+#      timeout: 300
+#      runas: root
